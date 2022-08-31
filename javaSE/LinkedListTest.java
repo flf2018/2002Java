@@ -5,7 +5,9 @@
  */
 
 public class LinkedListTest<E> {
-
+    /**
+     * 集合长度
+     */
     private int size;
     /**
      * 首节点
@@ -53,6 +55,7 @@ public class LinkedListTest<E> {
 
     /**
      * 查询
+     *
      * @param index
      * @return
      */
@@ -74,13 +77,51 @@ public class LinkedListTest<E> {
         }
     }
 
-    public Object  get(int index){
-        if (index > size-1){
-            return  "ArrayIndexOutOfBoundsException";
-        }else {
+    private Object get(int index) {
+        if (index > size - 1) {
+            return "ArrayIndexOutOfBoundsException";
+        } else {
             return node(index).item;
         }
     }
+
+    /**
+     * 删除节点
+     *
+     * @param node
+     * @return
+     */
+    private E unLink(Node<E> node) {
+        final E element = node.item;
+        //删除节点的上个节点
+        Node<E> prev = node.prev;
+        //删除节点的下个节点
+        Node<E> next = node.next;
+        //删除节点是首节点
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            //断开节点链接
+            node.prev = null;
+        }
+        //删除节点是尾节点
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            //断开节点链接
+            node.next = null;
+        }
+        node.item = null;
+        size--;
+        return element;
+    }
+
+    private Object remove(int index) {
+       return unLink(node(index));
+    }
+
 
     public static void main(String[] args) {
         LinkedListTest<String> list = new LinkedListTest<>();
@@ -88,7 +129,8 @@ public class LinkedListTest<E> {
         list.add("b");
         list.add("c");
         list.add("d");
-        System.out.println(list.get(3));
+        list.remove(0);
+        System.out.println(list.get(0));
 
     }
 
