@@ -19,7 +19,7 @@ public class HashSetTest<E> {
     /**
      *  hsahset 中的元素值是map集合的key
      *  所以不允许重复、可以为null
-     *  无序
+     *  所有元素无序
      * @param e
      */
     void add(E e){
